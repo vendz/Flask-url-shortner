@@ -10,7 +10,6 @@ URL Shortener
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="input-group">
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3">https://example.com/</span>
                 <input type="url" class="form-control" name="entered_url" id="url" placeholder="Include https://" required>
                 <button class="btn btn-primary" type="submit" id="short-btn">shorten URL</button>
             </div>
@@ -18,11 +17,52 @@ URL Shortener
         <div class="input-group">
             <input type="text" class="form-control" id="shorturl" name="shorturl" readonly value="{{ short_url }}">
             <span class="input-group-btn">
-                <button class="btn btn-outline-primary" type="button" id="copy-btn" onclick="myFunction()">Copy</button>
+                <button class="btn btn-outline-primary" type="button" id="copy-btn" onclick="myFunction()"><svg style="margin-right:10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>Copy</button>
             </span>
         </div>
     </form>
 </section>
+<br>
+<div style="margin: 30px">
+<table class="table table-hover table-bordered table-striped" style="margin-right:100px">
+    <thead>
+        <tr>
+            <th>
+                original url
+            </th>
+            <th>
+                Short Url
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doc in docs %}
+            <tr>
+                <td>
+                    <a href="{{doc.to_dict()['long_url']}}" target="_blank">{{doc.to_dict()['long_url']}}</a>
+                </td>
+                <td>
+                    <a href="{{doc.to_dict()['short_url']}}" target="_blank">{{doc.to_dict()['short_url']}}</a>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-justified hidden-xs">
+                    <button type="button" class="btn btn-outline-primary"><svg style="margin-right:10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>copy</button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
 
 <script>
 function myFunction() {
@@ -40,48 +80,6 @@ function myFunction() {
 section {
   margin: 0 auto;
   width: 80%;
-}
-footer {
-  border-top: 1px #ECECEC solid;
-  margin: 1em;
-  padding: 0.5em;
-}
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
 }
 </style>
 {% endblock %}
