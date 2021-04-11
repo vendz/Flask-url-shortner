@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+URL Shortener
+{% endblock %}
+
+{%block content%}
+<section>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="input-group">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">https://example.com/</span>
+                <input type="url" class="form-control" name="entered_url" id="url" placeholder="Include https://" required>
+                <button class="btn btn-primary" type="submit" id="short-btn">shorten URL</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" id="shorturl" name="shorturl" readonly value="{{ short_url }}">
+            <span class="input-group-btn">
+                <button class="btn btn-outline-primary" type="button" id="copy-btn" onclick="myFunction()">Copy</button>
+            </span>
+        </div>
+    </form>
+</section>
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("shorturl");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+</script>
+
+<style>
+.input-group {
+  padding: 1em;
+}
+section {
+  margin: 0 auto;
+  width: 80%;
+}
+footer {
+  border-top: 1px #ECECEC solid;
+  margin: 1em;
+  padding: 0.5em;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+{% endblock %}
