@@ -4,7 +4,7 @@ import string
 import random
 
 # change this base URL to your domain name after publishing
-base_url = "http://127.0.0.1:5000/"
+base_url = "https://shortener.vandit.cf/"
 
 
 @app.route('/', methods=['POST', 'GET'])
