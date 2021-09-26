@@ -99,7 +99,8 @@ def is_email_verified():
     try:
         data = auth.get_account_info(session['token'])  # get user information
         email_verified = data['users'][0]['emailVerified']
-    except Exception:
+    except Exception as e:
+        print(e)
         return redirect(url_for('index'))
     if email_verified:
         session['logged_in'] = True
@@ -128,8 +129,8 @@ def account_page():
 @app.route('/logout')
 def logout():
     if g.user is not None:
-        # auth.signOut()
         session.pop('logged_in', None)
+        session.pop('token', None)
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
