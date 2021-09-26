@@ -1,1 +1,4 @@
 serviceAccountKey.json
+config.py
+__pycache__
+.idea
